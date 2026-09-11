@@ -124,3 +124,88 @@ docker run --name credis uname/imgname:latest
   <artifactId>java-project</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 </project>
+
+Here are all the Git commands from the assignment, scenario by scenario:
+
+**a) First commit on an un-versioned folder**
+```
+cd railway-ticket-booking
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+**b) New feature branch (train search)**
+```
+git checkout main
+git pull origin main
+git checkout -b feature/train-search
+git add .
+git commit -m "Add train search by source and destination"
+git push -u origin feature/train-search
+```
+
+**c) Review changes before committing**
+```
+git status
+git diff
+git add -A
+git diff --staged
+```
+
+**d) Discard uncommitted changes**
+```
+git restore train-search.html
+# or classic equivalent:
+git checkout -- train-search.html
+```
+
+**e) Move branch back to an earlier commit (unpushed)**
+```
+git log --oneline
+git reset --hard <commit-hash>
+```
+
+**f) Find and delete unused branches**
+
+```
+git branch --merged main
+git branch -d old-feature
+git push origin --delete old-feature
+```
+
+**g) Merge two feature branches into main**
+```
+git checkout main
+git pull origin main
+git merge feature/train-search
+git merge feature/passenger-registration
+git add .
+git commit -m "Merge train-search and passenger-registration into main"
+git push origin main
+```
+
+**h) Create, inspect, and apply a patch**
+```
+git format-patch -1 <commit-hash>
+git apply --stat 0001-add-search.patch
+git apply --check 0001-add-search.patch
+git am 0001-add-search.patch
+```
+
+**i) Patch fails to apply cleanly (conflicts)**
+```
+git apply --reject 0001-add-search.patch
+# fix the .rej hunks manually, or use:
+git am --3way
+git add <resolved-files>
+git am --continue
+```
+
+**j) Configure remote and push project history**
+
+```
+git remote add origin https://github.com/<username>/railway-ticket-booking.git
+git branch -M main
+git push -u origin main
+```
